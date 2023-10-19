@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import React, { lazy, Suspense } from 'react';
+import { Chef, FindUs, Footer, Header } from './container';
+import { Navbar } from './components';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const Gallery = lazy(() => import('./container/Gallery/Gallery'));
+const SpecialMenu = lazy(() => import('./container/Menu/SpecialMenu'));
+const AboutUs = lazy(() => import('./container/AboutUs/AboutUs'));
+const Laurels = lazy(() => import('./container/Laurels/Laurels'));
+
+const App = () => (
+  <div>
+    <Navbar />
+    <Header />
+    <Suspense fallback={<div>Loading...</div>}>
+      <AboutUs />
+    </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <SpecialMenu />
+    </Suspense>
+    <Chef />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Laurels />
+    </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Gallery />
+    </Suspense>
+    <FindUs />
+    <Footer />
+  </div>
+);
 
 export default App;
